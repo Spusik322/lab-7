@@ -7,6 +7,7 @@
 #include <cstring>
 #include <array>
 #include <random>
+#include <vector>
 class student {
     protected:
     char name[100];
@@ -55,6 +56,7 @@ class student {
     void setCourse(int _course) {
         course = _course;
     }
+    virtual double avarageScore();
 };
 int student::studCounter = 1;
 class studentAfterSession1 : public student {
@@ -92,7 +94,7 @@ class studentAfterSession1 : public student {
     void setMarks1(int mark, int position) {
         markSession1[position] = mark;
     }
-    virtual double avarageScore() {
+    double avarageScore() override{
         double avarageScore;
         for (int i = 0; i < 4; i++) {
             avarageScore += markSession1[i];
@@ -146,6 +148,37 @@ class studentAfterSession2 : public studentAfterSession1 {
         return avarageScore / 9;
     }
 };
+double avarageScoreofVector(std::vector<student*> &students) {
+    int counter = 0;
+    double avarageScoreofVector = 0;
+    for (student* s : students) {
+        if (typeid(s) == typeid(student)) {
+            continue;
+        } else {
+            avarageScoreofVector += s->avarageScore();
+            counter++;
+        } 
+    }
+    avarageScoreofVector /= counter;
+    return avarageScoreofVector;
+}
+double avarageScoreofGroup(std::vector<student> &students, int group) {
+    int counter = 0;
+    double avarageScoreofGroup = 0;
+    for (student s : students) {
+        if (s.getGroup() == group) {
+            if (typeid(s) == typeid(student)) {
+                continue;
+            } else {
+                avarageScoreofGroup += s.avarageScore();
+                counter++;
+            }
+        } 
+        continue;
+    }
+    avarageScoreofGroup /= counter;
+    return avarageScoreofGroup;
+}
 std::ostream& operator << (std::ostream &os, student &person)
 {   os << "ID: " << std::hex << person.getId() << '\n';
     os << "Имя студента: " << person.getName() << '\n';
