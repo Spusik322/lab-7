@@ -1,11 +1,14 @@
 #include "student.h"
+
 int student::studCounter = 1;
+
 student::student(char* _name, int _course, int _group) : course(_course), group(_group) {
     id = 0xabcadef + studCounter;
-    recordBook = studCounter;
+    recordBook = 1000000 + studCounter;
     studCounter++;
     strcpy(name, _name);
 }
+
 student::student(const student &other) {
     strcpy(name, other.name);
     id = other.id;
@@ -13,41 +16,52 @@ student::student(const student &other) {
     course = other.course;
     group = other.group;
 }
+
 int student::getId() const {
     return id;
 }
-char* student::getName() {
-    return name;
+
+char* student::getName() const {
+    return (char*)name;
 }
+
 int student::getGroup() const {
     return group;
 }
+
 int student::getRecordBook() const {
     return recordBook;
 }
+
 int student::getCourse() const {
     return course;
 }
+
 void student::setName(char* _name) {
     strcpy(name, _name);
 }
+
 void student::setGroup(int _group) {
     group = _group;
 }
+
 void student::setCourse(int _course) {
     course = _course;
 }
+
 double student::avarageScore() {
     throw std::logic_error("Function not yet implemented");
 }
-std::ostream& operator << (std::ostream &os, student &person) {
+
+std::ostream& operator << (std::ostream &os, const student &person) {
     os << "ID: " << std::hex << person.getId() << '\n';
     os << "Имя студента: " << person.getName() << '\n';
     os << "Учиться на курсе: " << person.getCourse() << '\n';
     os << "В группе: " << person.getGroup() << '\n';
-    os << "Номер зачетки: " << person.getRecordBook();
+    os << "Номер зачетки: " << std::dec << person.getRecordBook();
     return os;
 }
+
 double avarageScoreofVector(std::vector<student*> &students) {
     int counter = 0;
     double avarageScoreofVector = 0;
@@ -62,6 +76,7 @@ double avarageScoreofVector(std::vector<student*> &students) {
     avarageScoreofVector /= counter;
     return avarageScoreofVector;
 }
+
 double avarageScoreofGroup(std::vector<student*> &students, int group) {
     int counter = 0;
     double avarageScoreofGroup = 0;
