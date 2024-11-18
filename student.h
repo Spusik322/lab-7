@@ -40,4 +40,4 @@ class student {
 
 std::ostream& operator << (std::ostream &os, const student &person);
 double avarageScoreofVector(std::vector<student*> &students);
-double avarageScoreofGroup(std::vector<student*> &students, int group);
+void avarageScoreofGroup(std::vector<student*> &students, int group);

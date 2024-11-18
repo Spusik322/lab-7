@@ -27,6 +27,7 @@ int main() {
     student* s4 = &stud5;
     students.push_back(s4);
     
-    std::cout << avarageScoreofVector(students) << '\n' << avarageScoreofGroup(students, 3) << '\n';
-    std::cout << stud1 << '\n' << stud2 << '\n' << stud3;
+    std::cout << avarageScoreofVector(students) << '\n';
+    avarageScoreofGroup(students, 5);
+    std::cout << '\n' << stud1 << '\n' << stud2 << '\n' << stud3;
 }

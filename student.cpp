@@ -1,4 +1,5 @@
 #include "student.h"
+#include "studentAfterFirstSession.h"
 
 int student::studCounter = 1;
 
@@ -77,20 +78,26 @@ double avarageScoreofVector(std::vector<student*> &students) {
     return avarageScoreofVector;
 }
 
-double avarageScoreofGroup(std::vector<student*> &students, int group) {
-    int counter = 0;
-    double avarageScoreofGroup = 0;
+void avarageScoreofGroup(std::vector<student*> &students, int group) {
+    int counter1 = 0;
+    double avarageScoreofGroup1 = 0;
+    int counter2 = 0;
+    double avarageScoreofGroup2 = 0;
     for (student* s : students) {
         if (s->getGroup() == group) {
-            if (typeid(s) == typeid(student)) {
+            if (typeid(*s) == typeid(student)) {
                 continue;
+            } else if (typeid(*s) == typeid(studentAfterFirstSession)) {
+                avarageScoreofGroup1 += s->avarageScore();
+                counter1++;
             } else {
-                avarageScoreofGroup += s->avarageScore();
-                counter++;
+                avarageScoreofGroup2 += s->avarageScore();
+                counter2++;
             }
         } 
         continue;
     }
-    avarageScoreofGroup /= counter;
-    return avarageScoreofGroup;
+    std::cout << "Средний балл в группе " << group << '\n';
+    std::cout << "После 1-ой сесии " << avarageScoreofGroup1/counter1 << '\n';
+    std::cout << "После 2-ой сесии " << avarageScoreofGroup2/counter2;
 }
